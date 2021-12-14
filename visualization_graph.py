@@ -65,7 +65,10 @@ def create_visual(matrix=None):
     ax = plt.gca()
     ax.margins(0.02)
     # переделаем path в удобный вид
-    path = '-'.join([str(i + 1) for i in path])+f'-{str(path[0]+1)}'
+    if len(path) < 10:
+        path = '-'.join([str(i + 1) for i in path])+f'-{str(path[0]+1)}'
+    else:
+        path = '-'.join([str(i + 1) for i in path[0:8]]) + "-..." + f'-{str(path[0] + 1)}'
     ax.legend(title=f'Имитация отжига\nИтераций: {iterations}\nСтоимость: {cost}\nМаршрут: {path}')
     plt.axis('off')
     plt.show()
@@ -78,4 +81,4 @@ if __name__ == '__main__':
             [7.0, 9.0, 7.0, '*', 2.0],
             [1.0, 9.0, 2.0, 18.0, '*']]
 
-    create_visual(matr)
+    create_visual()
