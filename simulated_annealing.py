@@ -81,7 +81,7 @@ def simulated_annealing(matrix=None):
 
 
 if __name__ == "__main__":
-    matr = [['*', 4.0, 1.0, 16.0, 8.0],
+    matr = [['*', 40.0, 1.0, 16.0, 8.0],
             [7.0, '*', 1.0, 7.0, 20.0],
             [10.0, 10.0, '*', 5.0, 3.0],
             [7.0, 9.0, 7.0, '*', 2.0],
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     start_time = time.time()
     a, b, c, m = simulated_annealing(matrix=matr)
     seconds = time.time() - start_time
-    a = '-'.join([str(i+1) for i in a])
+    a = '-'.join([str(i+1) for i in a])+f'-{str(a[0]+1)}'
     print("Алгоритм: Имитация отжига")
     print(f"Количество итераций: {c}")
     print(f"Время выполнения: {seconds} секунд")
