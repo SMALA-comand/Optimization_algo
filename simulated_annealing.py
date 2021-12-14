@@ -2,6 +2,7 @@ from input_graph import input_graph
 import random
 import math
 from copy import deepcopy
+import time
 
 
 def compute_way_cost(matrix, path):
@@ -37,7 +38,7 @@ def simulated_annealing(matrix=None):
     length = len(matrix)
     template = list(range(0, length))
     t_0 = 1000
-    t_min = 0.01
+    t_min = 0.005
 
     random.shuffle(template)
     global_min_cost = compute_way_cost(matrix, template)
@@ -86,8 +87,12 @@ if __name__ == "__main__":
             [7.0, 9.0, 7.0, '*', 2.0],
             [1.0, 9.0, 2.0, 18.0, '*']]
 
+    start_time = time.time()
     a, b, c, m = simulated_annealing(matrix=matr)
-    a = [i+1 for i in a]
-    print(f"Маршрут обхода: {a}")
-    print(f"Стоимость маршрута: {b}")
+    seconds = time.time() - start_time
+    a = '-'.join([str(i+1) for i in a])
+    print("Алгоритм: Имитация отжига")
     print(f"Количество итераций: {c}")
+    print(f"Время выполнения: {seconds} секунд")
+    print(f"Маршрут обхода: {a}")
+    print(f"Стоимость: {round(b, 1)}")
