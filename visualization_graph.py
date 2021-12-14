@@ -25,14 +25,17 @@ def get_set(path, tuples):
 
 def create_visual(matrix=None):
     ans = simulated_annealing(matrix=matrix)
-    matrix = ans[3]
     path = ans[0]
+    cost = ans[1]
+    iterations = ans[2]
+    matrix = ans[3]
 
     tuples = get_tuples(matrix)
 
     MG = nx.MultiDiGraph()
     MG.add_weighted_edges_from(tuples)
     pos = nx.spring_layout(MG, seed=63)
+
     options = {
         "node_color": "blue",
         "edge_color": 'gray',
@@ -40,8 +43,8 @@ def create_visual(matrix=None):
         "edge_cmap": plt.cm.Blues,
         "with_labels": True,
     }
-    subax1 = plt.subplot(121)
     nx.draw(MG, pos, **options)
+
     nx.draw_networkx_edges(
         MG,
         pos,
@@ -56,9 +59,15 @@ def create_visual(matrix=None):
         edgelist=get_set(path, tuples)[0],
         width=6,
         alpha=1,
-        edge_color="tab:red",
+        edge_color="green",
     )
 
+    ax = plt.gca()
+    ax.margins(0.02)
+    # переделаем path в удобный вид
+    path = '-'.join([str(i + 1) for i in path])+f'-{str(path[0]+1)}'
+    ax.legend(title=f'Имитация отжига\nИтераций: {iterations}\nСтоимость: {cost}\nМаршрут: {path}')
+    plt.axis('off')
     plt.show()
 
 
@@ -69,4 +78,4 @@ if __name__ == '__main__':
             [7.0, 9.0, 7.0, '*', 2.0],
             [1.0, 9.0, 2.0, 18.0, '*']]
 
-    create_visual(matrix=matr)
+    create_visual(matr)
