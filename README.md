@@ -11,3 +11,6 @@
   2. Решение задачи коммивояжера алгоритмом муравьиной колонии
 
 </details>
+
+![image](https://user-images.githubusercontent.com/37026894/145996141-057739c5-25e3-42fb-8736-ad7ba83ba6c5.png)
+
