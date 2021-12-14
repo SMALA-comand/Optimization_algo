@@ -40,9 +40,11 @@ def simulated_annealing(matrix=None):
     t_0 = 1000
     t_min = 0.005
 
-    random.shuffle(template)
-    global_min_cost = compute_way_cost(matrix, template)
-    global_min_way = template
+    global_min_cost = False
+    while not global_min_cost:
+        random.shuffle(template)
+        global_min_cost = compute_way_cost(matrix, template)
+        global_min_way = template
 
     t_k = t_0
     k = 1
@@ -73,7 +75,7 @@ def simulated_annealing(matrix=None):
                 current_way_cost = cost
                 current_way = new_way
 
-        if current_way_cost < global_min_cost:
+        if current_way_cost < global_min_cost and current_way_cost != False:
             global_min_cost = current_way_cost
             global_min_way = current_way
 
@@ -88,7 +90,7 @@ if __name__ == "__main__":
             [1.0, 9.0, 2.0, 18.0, '*']]
 
     start_time = time.time()
-    a, b, c, m = simulated_annealing(matrix=matr)
+    a, b, c, m = simulated_annealing()
     seconds = time.time() - start_time
     a = '-'.join([str(i+1) for i in a])+f'-{str(a[0]+1)}'
     print("Алгоритм: Имитация отжига")
