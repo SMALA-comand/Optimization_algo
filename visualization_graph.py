@@ -57,15 +57,15 @@ def create_visual(matrix=None):
         MG,
         pos,
         edgelist=get_set(path, tuples)[0],
-        width=6,
+        width=5,
         alpha=1,
         edge_color="green",
     )
 
     ax = plt.gca()
-    ax.margins(0.02)
+    ax.margins(0.01)
     # переделаем path в удобный вид
-    if len(path) < 10:
+    if len(path) < 8:
         path = '-'.join([str(i + 1) for i in path])+f'-{str(path[0]+1)}'
     else:
         path = '-'.join([str(i + 1) for i in path[0:8]]) + "-..." + f'-{str(path[0] + 1)}'
