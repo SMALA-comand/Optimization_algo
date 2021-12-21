@@ -14,10 +14,7 @@ def get_column(matrix, k):
     return column
 
 
-def next_city(matrix, city, black_list, fero_matrix):
-    alpha = 1
-    beta = 1
-
+def next_city(matrix, city, black_list, fero_matrix, alpha=1, beta=1):
     plan = []
     indexes = []
     for i, el in enumerate(matrix[city]):
@@ -38,9 +35,7 @@ def next_city(matrix, city, black_list, fero_matrix):
     return our_city
 
 
-def update_fero(fero_matrix, L_k, L_min, ant_way):
-    # определим константу испарения p
-    p = 0.1
+def update_fero(fero_matrix, L_k, L_min, ant_way, p=0.1):
     const = L_min/L_k
     tuples = [(ant_way[i], ant_way[i+1]) for i in range(0, len(ant_way)-1)]
     last_way = (ant_way[-1], ant_way[0])
