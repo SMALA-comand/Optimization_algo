@@ -32,13 +32,11 @@ def get_new_way(path):
     return new_way
 
 
-def simulated_annealing(matrix=None):
+def simulated_annealing(matrix=None, t_0=1000, t_min=0.005):
     if matrix is None:
         matrix = input_graph()
     length = len(matrix)
     template = list(range(0, length))
-    t_0 = 1000
-    t_min = 0.005
 
     global_min_cost = False
     while not global_min_cost:
