@@ -15,9 +15,22 @@ https://github.com/SMALA-comand)
   3. Генетический алгоритм coming soon...
 
 </details>
-<br />
-Визуализация результатов:
 
+---
+
+Инструкция по установке библиотеки на примере среды Jupyter Notebook
+
+<img src="https://user-images.githubusercontent.com/37026894/147232971-51203590-8e0e-4cf3-aba1-0b26b45e3ad1.png" width="1000" />
+
+<img src="https://user-images.githubusercontent.com/37026894/147233054-9f4ff41b-37e1-48f3-b962-6297743bf70e.png" width="1000" />
+
+<img src="https://user-images.githubusercontent.com/37026894/147233109-04f13ad2-5f62-468e-9e14-0a48f2949d1a.png" width="1000" />
+
+<img src="https://user-images.githubusercontent.com/37026894/147233144-52d897a8-7bc0-4fcf-b75d-eafffd3b54a3.png" width="1000" />
+
+---
+
+Визуализация результатов:
 
 <img src="https://user-images.githubusercontent.com/37026894/145999132-28cafe92-d2ca-4f30-888f-2a274e904e07.png" width="500" />
 
