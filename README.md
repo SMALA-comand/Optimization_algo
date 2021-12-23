@@ -4,9 +4,10 @@
 [![Powered by SMALA](https://img.shields.io/badge/powered%20by-SMALA-orange.svg?style=flat&colorA=E1432D&colorB=007D1B)](
 https://github.com/SMALA-comand)
 ![](https://img.shields.io/apm/l/vim-mode)
+[![View Pypi](https://img.shields.io/badge/View-Pypi-blue)](
+https://pypi.org/project/optimizationalgo/0.0.4/)
 
 Библиотека содержит в себе некоторые алгоритмы для оптимального решения задачи коммивояжёра.
-
 <br />
 <details><summary>Какие есть возможности:</summary>
 
