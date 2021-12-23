@@ -1,8 +1,9 @@
-from input_graph import input_graph
-import random
 import math
-from copy import deepcopy
 import time
+import random
+from copy import deepcopy
+
+from input_graph import input_graph
 
 
 def compute_way_cost(matrix, path):
@@ -32,7 +33,33 @@ def get_new_way(path):
     return new_way
 
 
-def simulated_annealing(matrix=None, t_0=1000, t_min=0.005):
+def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
+    """
+    The solution of the traveling salesman problem by the algorithm of simulated annealing.
+    
+    For the weight matrix of a graph representing a network of cities, finds the Hamiltonian cycle with the lowest cost.
+    
+    Parameters
+    ----------
+    matrix : 2d array NxN, optional 
+        Coefficient matrix, default is None object.
+    t_0 : float, optional
+        Starting temperature value, default is 1000.0.
+    t_min : float, optional
+        Final temperature value, default is 0.005.
+        
+    Returns
+    -------
+    global_min_way : [int] array like [1, 4, 2, ..., 1]
+        The most optimal way.
+    global_min_way : float
+        The cost of the most optimal way.
+    k : int
+        Number of iterations of the algorithm.
+    matrix : 2d array NxN 
+        Initial weight matrix.
+        
+    """
     if matrix is None:
         matrix = input_graph()
     length = len(matrix)
@@ -50,7 +77,6 @@ def simulated_annealing(matrix=None, t_0=1000, t_min=0.005):
     current_way_cost = compute_way_cost(matrix, template)
 
     while t_k > t_min:
-        # изменяем температуру
         # t_k = t_0 / math.log(1+k)
         t_k = t_0 / (1+k)
         k += 1
@@ -81,11 +107,13 @@ def simulated_annealing(matrix=None, t_0=1000, t_min=0.005):
 
 
 if __name__ == "__main__":
-    matr = [['*', 40.0, 1.0, 16.0, 8.0],
-            [7.0, '*', 1.0, 7.0, 20.0],
-            [10.0, 10.0, '*', 5.0, 3.0],
-            [7.0, 9.0, 7.0, '*', 2.0],
-            [1.0, 9.0, 2.0, 18.0, '*']]
+    matr = [
+        ['*', 40.0, 1.0, 16.0, 8.0],
+        [7.0, '*', 1.0, 7.0, 20.0],
+        [10.0, 10.0, '*', 5.0, 3.0],
+        [7.0, 9.0, 7.0, '*', 2.0],
+        [1.0, 9.0, 2.0, 18.0, '*']
+        ]
 
     start_time = time.time()
     a, b, c, m = simulated_annealing()
