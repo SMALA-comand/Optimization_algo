@@ -1,6 +1,5 @@
-import random
 import csv
-from scipy import stats
+import random
 
 
 def input_graph():
@@ -116,10 +115,8 @@ def input_graph():
                 if i == j:
                     matrix[i][j] = "*"
                     continue
-                xk = [0, 1]     # 0 - нет пути, 1 - есть путь
-                pk = [0.1, 0.9]
-                x = stats.rv_discrete(name='x', values=(xk, pk))
-                if x.rvs() == 0:
+                x = random.random()
+                if x <= 0.10:
                     matrix[i][j] = "*"
                 else:
                     if int_or_float == 'float':
