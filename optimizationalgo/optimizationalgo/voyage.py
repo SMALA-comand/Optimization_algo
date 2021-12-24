@@ -11,6 +11,7 @@ __all__ = ['ants_colony', 'simulated_annealing']
 
 
 def _input_graph():
+    """Реализует ввод/создание матрицы весов графа"""
     csv_true = None
     while csv_true is None:
         try:
@@ -131,11 +132,11 @@ def _input_graph():
                         matrix[i][j] = round(random.uniform(low, high), 2)
                     else:
                         matrix[i][j] = random.randint(int(low), int(high))
-
     return matrix
 
 
 def _get_column(matrix, k):
+    """Взятие столбца по его номеру (нумерация с 0) из двумерного массива"""
     column = []
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
@@ -145,6 +146,7 @@ def _get_column(matrix, k):
 
 
 def _next_city(matrix, city, black_list, fero_matrix, alpha, beta):
+    """Выбор следующего города, в который отправится муравей"""
     plan = []
     indexes = []
     for i, el in enumerate(matrix[city]):
@@ -166,6 +168,7 @@ def _next_city(matrix, city, black_list, fero_matrix, alpha, beta):
 
 
 def _update_fero(fero_matrix, L_k, L_min, ant_way, p):
+    """Обновление феромонов"""
     const = L_min / L_k
     tuples = [(ant_way[i], ant_way[i + 1]) for i in range(0, len(ant_way) - 1)]
     last_way = (ant_way[-1], ant_way[0])
@@ -269,6 +272,7 @@ def ants_colony(matrix=None, p=0.1, alpha=1.0, beta=1.0):
 
 
 def _compute_way_cost(matrix, path):
+    """Рассчёт стоимости пути"""
     total_cost = 0
     for i in range(0, len(path) - 1):
         first_city = path[i]
@@ -285,6 +289,7 @@ def _compute_way_cost(matrix, path):
 
 
 def _get_new_way(path):
+    """Swapping two elements in our path-array"""
     new_way = deepcopy(path)
     first = random.randint(0, len(path) - 1)
     second = random.randint(0, len(path) - 1)
@@ -364,6 +369,6 @@ def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
         if current_way_cost < global_min_cost and current_way_cost != False:
             global_min_cost = current_way_cost
             global_min_way = current_way
-
+            
     return global_min_way, global_min_cost, k, matrix
 
