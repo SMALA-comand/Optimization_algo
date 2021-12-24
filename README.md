@@ -5,7 +5,7 @@
 https://github.com/SMALA-comand)
 ![](https://img.shields.io/apm/l/vim-mode)
 [![View Pypi](https://img.shields.io/badge/View-Pypi-blue)](
-https://pypi.org/project/optimizationalgo/0.0.4/)
+https://pypi.org/project/optimizationalgo/)
 
 Библиотека содержит в себе некоторые алгоритмы для оптимального решения задачи коммивояжёра.
 <br />
@@ -21,7 +21,7 @@ https://pypi.org/project/optimizationalgo/0.0.4/)
 
 Инструкция по установке библиотеки на примере среды Jupyter Notebook
 
-<img src="https://user-images.githubusercontent.com/37026894/147232971-51203590-8e0e-4cf3-aba1-0b26b45e3ad1.png" width="1000" />
+<img src="https://user-images.githubusercontent.com/37026894/147365000-d8ecc87d-f34c-43c9-924d-eafcb50088a9.png" width="1000" />
 
 <img src="https://user-images.githubusercontent.com/37026894/147233054-9f4ff41b-37e1-48f3-b962-6297743bf70e.png" width="1000" />
 
