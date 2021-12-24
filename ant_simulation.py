@@ -85,6 +85,8 @@ def ants_colony(matrix=None, p=0.1, alpha=1.0, beta=1.0):
 
     clear_mat = deepcopy(matrix)
     fero_matrix = [[0.1]*length for i in range(length)]
+    global start_time
+    start_time = time.time()
     for i in range(length):
         for j in range(length):
             if matrix[i][j] == "*":
@@ -174,7 +176,7 @@ if __name__ == "__main__":
         [23, 56, 62, 29, 62, 16, 48, 30, 6, 16, 55, 24, 30, 66, 12, 35, 11, 61, 37, 10, 20, 33, 56, 54, 65, 59, 21, 59, 28, '*']
         ]
 
-    start_time = time.time()
+
     a, b, c, m = ants_colony(matr)
     seconds = time.time() - start_time
     a = '-'.join([str(i+1) for i in a])+f'-{str(a[0]+1)}'

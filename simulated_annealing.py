@@ -65,6 +65,8 @@ def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
     length = len(matrix)
     template = list(range(0, length))
 
+    global start_time
+    start_time = time.time()
     global_min_cost = False
     while not global_min_cost:
         random.shuffle(template)
@@ -115,7 +117,7 @@ if __name__ == "__main__":
         [1.0, 9.0, 2.0, 18.0, '*']
         ]
 
-    start_time = time.time()
+
     a, b, c, m = simulated_annealing()
     seconds = time.time() - start_time
     a = '-'.join([str(i+1) for i in a])+f'-{str(a[0]+1)}'
