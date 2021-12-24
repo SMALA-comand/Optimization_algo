@@ -25,19 +25,27 @@ def _input_graph():
             continue
 
     if csv_true == 1:
+        print("Разделитель в csv - точка с запятой (;), без заголовков")
         path = input('Путь: ')
         matr = []
-        with open(path, 'r', encoding='UTF-8') as f:
-            data = csv.reader(f, delimiter=';')
-            for row in data:
-                string = row[0]
-                numbers = string.split()
-                for i in range(len(numbers)):
-                    if numbers[i] == "*":
-                        continue
-                    else:
-                        numbers[i] = float(numbers[i])
-                matr.append(numbers)
+        try:
+            with open(path, 'r', encoding='UTF-8') as f:
+                data = csv.reader(f, delimiter=';')
+                for row in data:
+                    string = row[0]
+                    numbers = string.split()
+                    for i in range(len(numbers)):
+                        if numbers[i] == "*":
+                            continue
+                        else:
+                            numbers[i] = float(numbers[i])
+                    matr.append(numbers)
+        except IOError:
+            print("An IOError")
+            return None
+        except FileNotFoundError:
+            print("An FileNotFoundError")
+            return None
         return matr
 
     n = None
@@ -210,7 +218,7 @@ def ants_colony(matrix=None, p=0.1, alpha=1.0, beta=1.0):
         Initial weight matrix.
 
     """
-    if matrix is None:
+    while matrix is None:
         matrix = _input_graph()
     length = len(matrix)
 
@@ -327,7 +335,7 @@ def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
         Initial weight matrix.
 
     """
-    if matrix is None:
+    while matrix is None:
         matrix = _input_graph()
     length = len(matrix)
     template = list(range(0, length))
