@@ -19,13 +19,8 @@ https://pypi.org/project/optimizationalgo/)
 
 ---
 
-Инструкция по установке библиотеки на примере среды Jupyter Notebook
-
-<img src="https://user-images.githubusercontent.com/37026894/147366479-3c41b521-8585-4baa-8c5d-5adbb9fffe15.png" width="1000" />
-
-<img src="https://user-images.githubusercontent.com/37026894/147233054-9f4ff41b-37e1-48f3-b962-6297743bf70e.png" width="1000" />
-
-<img src="https://user-images.githubusercontent.com/37026894/147366521-f97346bc-c04c-41fb-8d6c-35f459fa508e.png" width="1000" />
+Инструкция по установке библиотеки на примере среды Google Colab
+https://colab.research.google.com/drive/1zRTZT8Fp9xnojvDtORpKUt_cSvkP5zS7?usp=sharing
 
 ---
 
