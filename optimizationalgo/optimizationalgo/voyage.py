@@ -4,16 +4,24 @@
 
 Модуль, реализующий оптимизационные алгоритмы решения задачи коммивояжёра.
 Представлены следующие алгоритмы: имитация муравьиной колонии и симуляция отжига.
+Также поддерживается визуализация.
+===========================
+
+Симуляция отжига - optimizationalgo.voyage.simulated_annealing()
+Имитация муравьиной колонии - optimizationalgo.voyage.ants_colony()
+Визуализация - optimizationalgo.voyage.create_visual()
 
 """
 import csv
 import math
-import time
 import random
 from copy import deepcopy
 from bisect import bisect_left
 
-__all__ = ['ants_colony', 'simulated_annealing']
+import networkx as nx
+import matplotlib.pyplot as plt
+
+__all__ = ['ants_colony', 'simulated_annealing', 'create_visual']
 
 
 def _input_graph():
@@ -80,7 +88,7 @@ def _input_graph():
         else:
             mode = m
 
-    matrix = [[0]*n for i in range(n)]    # невозможность попасть в точку отмечаем символом *
+    matrix = [[0] * n for i in range(n)]  # невозможность попасть в точку отмечаем символом *
     if mode == 1:
         for i in range(0, n):
             for j in range(0, n):
@@ -90,7 +98,7 @@ def _input_graph():
 
                 numb = None
                 while numb is None:
-                    number = input(f"Введите стоимость маршрута ({i+1}->{j+1}). "
+                    number = input(f"Введите стоимость маршрута ({i + 1}->{j + 1}). "
                                    f"Если маршрута нет, введите символ '*': ")
                     if number == "*":
                         matrix[i][j] = "*"
@@ -199,13 +207,12 @@ def _update_fero(fero_matrix, L_k, L_min, ant_way, p):
 def ants_colony(matrix=None, p=0.1, alpha=1.0, beta=1.0):
     """
     Solving the traveling salesman problem by an Ant algorithm.
-
     For the weight matrix of a graph representing a network of cities, finds the Hamiltonian cycle with the lowest cost.
-
     Parameters
     ----------
     matrix : 2d array NxN, optional
         Coefficient matrix, default is None object.
+        If matrix is None you will see interface for input data.
     p : float, between 0 and 1, optional
         Drying speed, default is 0.1.
     alpha : float, optional
@@ -222,7 +229,6 @@ def ants_colony(matrix=None, p=0.1, alpha=1.0, beta=1.0):
         Number of iterations of the algorithm.
     matrix : 2d array NxN
         Initial weight matrix.
-
     """
     while matrix is None:
         matrix = _input_graph()
@@ -317,18 +323,16 @@ def _get_new_way(path):
 def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
     """
     The solution of the traveling salesman problem by the algorithm of simulated annealing.
-
     For the weight matrix of a graph representing a network of cities, finds the Hamiltonian cycle with the lowest cost.
-
     Parameters
     ----------
     matrix : 2d array NxN, optional
         Coefficient matrix, default is None object.
+        If matrix is None you will see interface for input data.
     t_0 : float, optional
         Starting temperature value, default is 1000.0.
     t_min : float, optional
         Final temperature value, default is 0.005.
-
     Returns
     -------
     global_min_way : [int] array like [1, 4, 2, ..., 1]
@@ -339,7 +343,6 @@ def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
         Number of iterations of the algorithm.
     matrix : 2d array NxN
         Initial weight matrix.
-
     """
     while matrix is None:
         matrix = _input_graph()
@@ -383,6 +386,101 @@ def simulated_annealing(matrix=None, t_0=1000.0, t_min=0.005):
         if current_way_cost < global_min_cost and current_way_cost != False:
             global_min_cost = current_way_cost
             global_min_way = current_way
-            
+
     return global_min_way, global_min_cost, k, matrix
 
+
+def _get_tuples(matrix):
+    plan = []
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            if matrix[i][j] != '*':
+                elem = (i+1, j+1, matrix[i][j])
+                plan.append(elem)
+    return plan
+
+
+def _get_set(path, tuples):
+    good_tuples = [(path[i]+1, path[i+1]+1) for i in range(0, len(path)-1)]
+    last_el = (path[-1]+1, path[0]+1)
+    good_tuples.append(last_el)
+
+    bad_tuples = [i for i in tuples if i not in good_tuples]
+
+    return good_tuples, bad_tuples
+
+
+def create_visual(mode=0, matrix=None):
+    """
+    Visualization of a graph representing a network of cities.
+
+    The most optimal route for a traveling salesman is highlighted in a separate color.
+    Also attached is a legend.
+
+    Parameters
+    ----------
+    mode : 0 or 1, optional
+        0 for simulated_annealing and 1 for ants_colony, default is 0.
+    matrix : NxN 2D-array, optional
+        Initial matrix. Default is None.
+        If matrix is None you will see interface for input data.
+
+    Returns
+    -------
+    None
+
+    """
+    if mode == 0:
+        name_algo = 'Имитация отжига'
+        ans = simulated_annealing(matrix=matrix)
+    elif mode == 1:
+        name_algo = 'Муравьиный алгоритм'
+        ans = ants_colony(matrix=matrix)
+
+    path = ans[0]
+    cost = ans[1]
+    iterations = ans[2]
+    matrix = ans[3]
+
+    tuples = _get_tuples(matrix)
+
+    MG = nx.MultiDiGraph()
+    MG.add_weighted_edges_from(tuples)
+    pos = nx.spring_layout(MG, seed=63)
+
+    options = {
+        "node_color": "blue",
+        "edge_color": 'gray',
+        "width": 1,
+        "edge_cmap": plt.cm.Blues,
+        "with_labels": True,
+    }
+    nx.draw(MG, pos, **options)
+
+    nx.draw_networkx_edges(
+        MG,
+        pos,
+        edgelist=_get_set(path, tuples)[1],
+        width=1,
+        alpha=0.2,
+        edge_color="gray",
+    )
+    nx.draw_networkx_edges(
+        MG,
+        pos,
+        edgelist=_get_set(path, tuples)[0],
+        width=5,
+        alpha=1,
+        edge_color="green",
+    )
+
+    ax = plt.gca()
+    ax.margins(0.01)
+    # переделаем path в удобный вид
+    if len(path) < 8:
+        path = '-'.join([str(i + 1) for i in path])+f'-{str(path[0]+1)}'
+    else:
+        path = '-'.join([str(i + 1) for i in path[0:8]]) + "-..." + f'-{str(path[0] + 1)}'
+    ax.legend(title=f'{name_algo}\nИтераций: {iterations}\nСтоимость: {cost}\nМаршрут: {path}')
+    plt.axis('off')
+    plt.show()
