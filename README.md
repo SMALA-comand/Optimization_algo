@@ -20,8 +20,7 @@ https://pypi.org/project/optimizationalgo/)
 ---
 
 Инструкция по установке библиотеки на примере среды Google Colab
-https://colab.research.google.com/drive/1zRTZT8Fp9xnojvDtORpKUt_cSvkP5zS7?usp=sharing
-
+https://colab.research.google.com/drive/1ZF-BKAitZH2T2-Bu7lSOR2yrR2LozbdL?usp=sharing
 ---
 
 Визуализация результатов:
